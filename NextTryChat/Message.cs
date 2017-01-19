@@ -16,9 +16,7 @@ namespace NextTryChat
     {
         public int MessageID { get; set; }
         public string Content { get; set; }
-        public System.DateTime TimeStamp { get; set; }
+        public string TimeStamp { get; set; }
         public int PlayerID { get; set; }
-    
-        public virtual Chat Chat { get; set; }
     }
 }

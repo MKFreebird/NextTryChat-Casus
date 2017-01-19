@@ -7,7 +7,6 @@
       <Diagram DiagramId="ae34388165ba4a26b6d1429eaa8d8749" Name="Diagram1" >
         <EntityTypeShape EntityType="Chat.Chat" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="Chat.Message" Width="1.5" PointX="6.125" PointY="0.625" />
-        <AssociationConnector Association="Chat.ChatMessage" />
         <EntityTypeShape EntityType="Chat.User" Width="1.5" PointX="0.5" PointY="0.75" />
         <AssociationConnector Association="Chat.UserChat" />
       </Diagram>

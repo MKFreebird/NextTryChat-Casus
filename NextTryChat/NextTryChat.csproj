@@ -104,6 +104,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="stylesheets\Styles.css" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -135,10 +136,11 @@
       <LastGenOutput>Chat1.cs</LastGenOutput>
       <DependentUpon>Chat.edmx</DependentUpon>
     </Content>
-    <Content Include="GUI\msg.aspx" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chat1.cs">
@@ -170,14 +172,8 @@
     <Compile Include="Message.cs">
       <DependentUpon>Chat.tt</DependentUpon>
     </Compile>
-    <Compile Include="GUI\msg.aspx.cs">
-      <DependentUpon>msg.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="GUI\msg.aspx.designer.cs">
-      <DependentUpon>msg.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLinterface.cs" />
     <Compile Include="User.cs">
       <DependentUpon>Chat.tt</DependentUpon>
     </Compile>

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/18/2017 11:35:27
--- Generated from EDMX file: c:\users\roy\documents\visual studio 2015\Projects\NextTryChat\NextTryChat\Chat.edmx
+-- Date Created: 01/19/2017 06:14:30
+-- Generated from EDMX file: C:\Users\admin\Desktop\NextTryChat\NextTryChat\Chat.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,11 +17,32 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_ChatMessage]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MessageSet] DROP CONSTRAINT [FK_ChatMessage];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserChat_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserChat] DROP CONSTRAINT [FK_UserChat_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserChat_Chat]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserChat] DROP CONSTRAINT [FK_UserChat_Chat];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[ChatSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ChatSet];
+GO
+IF OBJECT_ID(N'[dbo].[MessageSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MessageSet];
+GO
+IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserSet];
+GO
+IF OBJECT_ID(N'[dbo].[UserChat]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserChat];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -38,9 +59,8 @@ GO
 CREATE TABLE [dbo].[MessageSet] (
     [MessageID] int IDENTITY(1,1) NOT NULL,
     [Content] nvarchar(max)  NOT NULL,
-    [TimeStamp] datetime  NOT NULL,
-    [PlayerID] int  NOT NULL,
-    [Chat_ChatID] int  NOT NULL
+    [TimeStamp] nvarchar(max)  NOT NULL,
+    [PlayerID] int  NOT NULL
 );
 GO
 
@@ -89,21 +109,6 @@ GO
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [Chat_ChatID] in table 'MessageSet'
-ALTER TABLE [dbo].[MessageSet]
-ADD CONSTRAINT [FK_ChatMessage]
-    FOREIGN KEY ([Chat_ChatID])
-    REFERENCES [dbo].[ChatSet]
-        ([ChatID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ChatMessage'
-CREATE INDEX [IX_FK_ChatMessage]
-ON [dbo].[MessageSet]
-    ([Chat_ChatID]);
-GO
 
 -- Creating foreign key on [User_UserID] in table 'UserChat'
 ALTER TABLE [dbo].[UserChat]

@@ -10,10 +10,6 @@
     <EntitySet Name="MessageSet" EntityType="Chat.Store.MessageSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserSet" EntityType="Chat.Store.UserSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserChat" EntityType="Chat.Store.UserChat" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="ChatMessage" Association="Chat.Store.ChatMessage">
-      <End Role="Chat" EntitySet="ChatSet" />
-      <End Role="Message" EntitySet="MessageSet" />
-    </AssociationSet>
     <AssociationSet Name="FK_UserChat_User" Association="Chat.Store.FK_UserChat_User">
       <End Role="User" EntitySet="UserSet" />
       <End Role="UserChat" EntitySet="UserChat" />
@@ -36,9 +32,8 @@
     </Key>
     <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="TimeStamp" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PlayerID" Type="int" Nullable="false" />
-    <Property Name="Chat_ChatID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="UserSet">
     <Key>
@@ -55,18 +50,6 @@
     <Property Name="User_UserID" Type="int" Nullable="false" />
     <Property Name="Chat_ChatID" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="ChatMessage">
-    <End Role="Chat" Type="Chat.Store.ChatSet" Multiplicity="1" />
-    <End Role="Message" Type="Chat.Store.MessageSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Chat">
-        <PropertyRef Name="ChatID" />
-      </Principal>
-      <Dependent Role="Message">
-        <PropertyRef Name="Chat_ChatID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_UserChat_User">
     <End Role="User" Type="Chat.Store.UserSet" Multiplicity="1" />
     <End Role="UserChat" Type="Chat.Store.UserChat" Multiplicity="*" />
@@ -98,10 +81,6 @@
         <EntityContainer Name="ChatContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ChatSet" EntityType="Chat.Chat" />
           <EntitySet Name="MessageSet" EntityType="Chat.Message" />
-          <AssociationSet Name="ChatMessage" Association="Chat.ChatMessage">
-            <End Role="Chat" EntitySet="ChatSet" />
-            <End Role="Message" EntitySet="MessageSet" />
-          </AssociationSet>
           <EntitySet Name="UserSet" EntityType="Chat.User" />
           <AssociationSet Name="UserChat" Association="Chat.UserChat">
             <End Role="User" EntitySet="UserSet" />
@@ -113,7 +92,6 @@
             <PropertyRef Name="ChatID" />
           </Key>
           <Property Name="ChatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Message1" Relationship="Chat.ChatMessage" FromRole="Chat" ToRole="Message" />
           <Property Name="ChatType" Type="String" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Chat.UserChat" FromRole="Chat" ToRole="User" />
         </EntityType>
@@ -122,15 +100,10 @@
             <PropertyRef Name="MessageID" />
           </Key>
           <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Chat" Relationship="Chat.ChatMessage" FromRole="Message" ToRole="Chat" />
           <Property Name="Content" Type="String" Nullable="false" />
-          <Property Name="TimeStamp" Type="DateTime" Nullable="false" />
+          <Property Name="TimeStamp" Type="String" Nullable="false" />
           <Property Name="PlayerID" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="ChatMessage">
-          <End Type="Chat.Chat" Role="Chat" Multiplicity="1" />
-          <End Type="Chat.Message" Role="Message" Multiplicity="*" />
-        </Association>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -175,14 +148,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="ChatMessage" TypeName="Chat.ChatMessage" StoreEntitySet="MessageSet">
-      <EndProperty Name="Chat">
-        <ScalarProperty Name="ChatID" ColumnName="Chat_ChatID" />
-      </EndProperty>
-      <EndProperty Name="Message">
-        <ScalarProperty Name="MessageID" ColumnName="MessageID" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="UserChat" TypeName="Chat.UserChat" StoreEntitySet="UserChat">
       <EndProperty Name="User">
         <ScalarProperty Name="UserID" ColumnName="User_UserID" />
